@@ -1,0 +1,10 @@
+.messages {
+    overflow-y: auto;
+    backdrop-filter: blur(8px);
+}
+
+.msg {
+    background: #121828;
+    border: 1px solid #22263a;
+    box-shadow: 0 0 12px #4af2a122;
+}
