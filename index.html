@@ -1,259 +1,352 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
-<title>Disco Chat</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<div class="header">
 
-<style>
-:root{
-    --bg:#05060a;
-    --panel:#101320;
-    --accent:#4af2a1;
-    --text:#f5f7ff;
-    --muted:#8b90a5;
-    --border:#22263a;
-}
-
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
-
-body{
-    background:var(--bg);
-    color:var(--text);
-    font-family:system-ui,sans-serif;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
-
-.chat{
-    width:700px;
-    height:800px;
-
-    background:linear-gradient(
-        145deg,
-        #0b0e18,
-        #05060a
-    );
-
-    border:1px solid var(--border);
-    border-radius:12px;
-
-    display:flex;
-    flex-direction:column;
-
-    overflow:hidden;
-
-    box-shadow:
-        0 0 0 1px #000,
-        0 20px 50px #000;
-}
-
-.header{
-    padding:14px;
-    border-bottom:1px solid var(--border);
-
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.title{
-    color:var(--accent);
-    letter-spacing:.15em;
-    text-transform:uppercase;
-}
-
-.status{
-    color:var(--muted);
-    font-size:12px;
-}
-
-/* CHAT AREA */
-
-.messages{
-    flex:1;
-
-    overflow-y:auto;
-
-    padding:16px;
-
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-
-    scroll-behavior:smooth;
-}
-
-.messages::-webkit-scrollbar{
-    width:8px;
-}
-
-.messages::-webkit-scrollbar-thumb{
-    background:#222;
-    border-radius:999px;
-}
-
-.msg{
-    max-width:80%;
-    padding:10px 14px;
-
-    border:1px solid var(--border);
-    border-radius:10px;
-
-    background:#111622;
-
-    word-wrap:break-word;
-}
-
-.self{
-    align-self:flex-end;
-
-    background:#0f241c;
-    border-color:#194d39;
-}
-
-.other{
-    align-self:flex-start;
-}
-
-/* INPUT */
-
-.footer{
-    padding:14px;
-
-    border-top:1px solid var(--border);
-
-    display:flex;
-    gap:10px;
-}
-
-input{
-    flex:1;
-    padding:12px;
-
-    background:#0b0f1c;
-    border:1px solid var(--border);
-    border-radius:10px;
-
-    color:white;
-}
-
-button{
-    padding:12px 18px;
-
-    border:none;
-    border-radius:10px;
-
-    background:var(--accent);
-    color:black;
-
-    cursor:pointer;
-    font-weight:bold;
-}
-
-button:hover{
-    filter:brightness(1.1);
-}
-</style>
-</head>
-<body>
-
-<div class="chat">
-
-    <div class="header">
-        <div class="title">Disco Chat</div>
-        <div class="status">ONLINE</div>
-    </div>
-
-    <div class="messages" id="messages">
-
-        <div class="msg other">
-            Welcome to Disco.
-        </div>
-    <div class="msg">
-        <span class="time">21:44</span>
-        <span class="user">rah</span>
-        wheat price reached 14 gold
-    </div>
-    
-        <div class="msg self">
-            Hello world.
-        </div>
-
-    </div>
-
-    <div class="footer">
-        <input
-            id="messageInput"
-            placeholder="Type message..."
-        >
-
-        <button onclick="sendMessage()">
-            SEND
-        </button>
-    </div>
-
+<div class="room-name">
+-- ROOM --
 </div>
 
-<script>
+<button id="newIdBtn" class="new-id-btn">
+NEW ID
+</button>
 
-const messages =
-document.getElementById("messages");
+</div>
+<title>DISCO</title>
 
-const input =
-document.getElementById("messageInput");
+<style>
 
-let autoScroll = true;
+:root{
+	--bg:#05060a;
+	--panel:#0c1017;
+	--panel2:#111722;
+	--green:#47ff9c;
+	--green-soft:#47ff9c22;
+	--text:#d8dde4;
+	--muted:#6d7587;
+	--border:#1f2a39;
+	}
 
-/* Detect if user scrolled up */
+*{
+	margin:0;
+	padding:0;
+	box-sizing:border-box;
+	}
 
-messages.addEventListener("scroll", () => {
+body{
+	background:
+	radial-gradient(circle at top,#142119 0%,#05060a 45%);
+	color:var(--text);
+	font-family:Consolas, "Courier New", monospace;
+	height:100vh;
 
-    const distance =
-        messages.scrollHeight -
-        messages.scrollTop -
-        messages.clientHeight;
+	display:flex;
+	align-items:center;
+	justify-content:center;
 
-    autoScroll = distance < 100;
-});
+	overflow:hidden;
+	}
 
-function sendMessage(){
+/* Scanlines */
 
-    const text = input.value.trim();
+body::after{
+	content:"";
+	position:fixed;
+	inset:0;
 
-    if(!text) return;
+	background:
+	repeating-linear-gradient(
+		to bottom,
+		rgba(255,255,255,.02) 0px,
+		rgba(255,255,255,.02) 1px,
+		transparent 2px
+		);
 
-    const div =
-        document.createElement("div");
+	pointer-events:none;
+	}
 
-    div.className = "msg self";
-    div.textContent = text;
+	/* Main Window */
 
-    messages.appendChild(div);
+	.chat-window{
 
-    input.value = "";
+		width:min(1200px,95vw);
+		height:min(850px,95vh);
 
-    if(autoScroll){
-        messages.scrollTop =
-            messages.scrollHeight;
-    }
-}
+		background:linear-gradient(
+			180deg,
+			#0c1017,
+			#090c12
+			);
 
-input.addEventListener(
-    "keydown",
-    e => {
-        if(e.key === "Enter"){
-            sendMessage();
-        }
-    }
-);
+		border:1px solid var(--border);
+		border-radius:12px;
 
-</script>
+		overflow:hidden;
 
-</body>
-</html>
+		box-shadow:
+		0 0 0 1px #000,
+		0 0 30px #000,
+		0 0 60px #47ff9c22;
+		}
+
+		.header{
+
+			height:60px;
+
+			display:flex;
+			align-items:center;
+
+			padding:0 20px;
+
+			border-bottom:1px solid var(--border);
+
+			background:#0f1520;
+			}
+
+		.room-name{
+			color:var(--green);
+
+			font-size:18px;
+
+			letter-spacing:.15em;
+
+			text-shadow:
+			0 0 10px var(--green);
+			}
+
+		.chat-log{
+
+			height:calc(100% - 120px);
+
+			padding:18px;
+
+			overflow-y:auto;
+
+			display:flex;
+			flex-direction:column;
+
+			gap:10px;
+			}
+
+		.chat-log::-webkit-scrollbar{
+			width:10px;
+			}
+
+		.chat-log::-webkit-scrollbar-track{
+			background:#07090d;
+			}
+
+		.chat-log::-webkit-scrollbar-thumb{
+			background:#243146;
+			border-radius:999px;
+			}
+
+		.chat-log::-webkit-scrollbar-thumb:hover{
+			background:#32435e;
+			}
+
+		/* Message */
+
+		.message{
+			line-height:1.6;
+			word-wrap:break-word;
+		}
+
+		.time{
+		color:var(--muted);
+		}
+
+		.user{
+		color:var(--green);
+
+		text-shadow:
+		0 0 8px #47ff9c99;
+		}
+
+		.text{
+		color:var(--text);
+		}
+
+		/* Footer */
+
+		.input-bar{
+
+			height:60px;
+
+			border-top:1px solid var(--border);
+
+			display:flex;
+			align-items:center;
+
+			padding:0 15px;
+
+			background:#0f1520;
+			}
+
+		.prompt{
+			color:var(--green);
+
+			margin-right:12px;
+
+			font-size:20px;
+			}
+
+		#messageInput{
+
+			flex:1;
+
+			background:none;
+			border:none;
+			outline:none;
+
+			color:white;
+
+			font-family:inherit;
+			font-size:16px;
+			}
+
+		#messageInput::placeholder{
+			color:#556070;
+			}
+
+		</style>
+		</head>
+		<body>
+
+		<div class="chat-window">
+
+		<div class="header">
+		<div class="room-name">
+		-- ROOM --
+		</div>
+		</div>
+
+		<div class="chat-log" id="messages">
+
+		<div class="message">
+		<span class="time">20:33</span>
+		<span class="user">[K4MZ2R]</span>
+		<span class="text">
+		: Yo i have legit strat for life,
+		maybe exponential growth until walls.
+		</span>
+		</div>
+
+		<div class="message">
+		<span class="time">20:35</span>
+		<span class="user">[GG533D]</span>
+		<span class="text">
+		: Show more or I call
+		</span>
+		</div>
+
+		<div class="message">
+		<span class="time">20:35</span>
+		<span class="user">[GG533D]</span>
+		<span class="text">
+		: }:&gt;
+		</span>
+		</div>
+
+		</div>
+
+		<div class="input-bar">
+		<div class="prompt">&gt;</div>
+
+		<input
+		id="messageInput"
+		type="text"
+		placeholder="Type message..."
+		>
+		</div>
+
+		</div>
+		<script>
+
+		const messages = document.getElementById("messages");
+		const input = document.getElementById("messageInput");
+
+		/* User code */
+
+		function generateCode() {
+			const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+			let code = "";
+
+			for(let i = 0; i < 6; i++){
+				code += chars[
+					Math.floor(Math.random() * chars.length)
+					];
+				}
+
+				return code;
+				}
+
+				let userCode = localStorage.getItem("userCode");
+
+				if(!userCode){
+					userCode = generateCode();
+					localStorage.setItem("userCode", userCode);
+					}
+
+				/* Add message */
+
+				function addMessage(text){
+
+					const time = new Date();
+
+					const hh =
+					String(time.getHours()).padStart(2,"0");
+
+					const mm =
+					String(time.getMinutes()).padStart(2,"0");
+
+					const message =
+					document.createElement("div");
+
+					message.className = "message";
+
+					message.innerHTML = `
+					<span class="time">${hh}:${mm}</span>
+					<span class="user">[${userCode}]</span>
+					<span class="text"> : ${text}</span>
+					`;
+
+					messages.appendChild(message);
+
+					messages.scrollTop =
+					messages.scrollHeight;
+					}
+
+				/* Send */
+
+				function sendMessage(){
+
+					const text = input.value.trim();
+
+					if(text === "") return;
+
+				addMessage(text);
+
+				input.value = "";
+				}
+
+				/* Enter key */
+
+				input.addEventListener("keydown", (e) => {
+
+					if(e.key === "Enter"){
+
+						e.preventDefault();
+
+						sendMessage();
+						}
+
+					});
+
+					</script>
+		</body>
+		</html>
