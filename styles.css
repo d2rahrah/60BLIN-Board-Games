@@ -1,10 +1,44 @@
-.messages {
-    overflow-y: auto;
-    backdrop-filter: blur(8px);
+.chat-layout{
+    display:grid;
+
+    grid-template-columns:
+    220px
+    1fr;
+
+    height:100%;
+}
+.system {
+    color: #7fa0ff;
+    opacity: .8;
+}
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 }
 
-.msg {
-    background: #121828;
-    border: 1px solid #22263a;
-    box-shadow: 0 0 12px #4af2a122;
+.new-id-btn{
+    background:#101720;
+    border:1px solid #284030;
+    color:var(--green);
+
+    font-size:10px;
+    font-family:inherit;
+
+    padding:4px 8px;
+
+    border-radius:4px;
+
+    cursor:pointer;
+
+    letter-spacing:.1em;
+
+    transition:.15s;
+}
+
+.new-id-btn:hover{
+    background:#132218;
+
+    box-shadow:
+    0 0 8px #47ff9c55;
 }
