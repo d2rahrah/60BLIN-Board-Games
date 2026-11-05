@@ -1,352 +1,82 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<div class="header">
 
-<div class="room-name">
--- ROOM --
-</div>
+    <title>DISCO</title>
 
-<button id="newIdBtn" class="new-id-btn">
-NEW ID
-</button>
+    <link rel="stylesheet" href="styles.css">
+    </head>
 
-</div>
-<title>DISCO</title>
+    <body>
 
-<style>
+    <div class="chat-window">
 
-:root{
-	--bg:#05060a;
-	--panel:#0c1017;
-	--panel2:#111722;
-	--green:#47ff9c;
-	--green-soft:#47ff9c22;
-	--text:#d8dde4;
-	--muted:#6d7587;
-	--border:#1f2a39;
-	}
+    <!-- HEADER -->
+    <div class="header">
 
-*{
-	margin:0;
-	padding:0;
-	box-sizing:border-box;
-	}
+    <div class="room-name" id="roomName">
+    -- ROOM --
+    </div>
+    <div class="token-display">
+    TOKENS: <span id="tokenBalance">0</span>
+    </div>
+    <button id="newIdBtn" class="new-id-btn">
+    NEW ID
+    </button>
 
-body{
-	background:
-	radial-gradient(circle at top,#142119 0%,#05060a 45%);
-	color:var(--text);
-	font-family:Consolas, "Courier New", monospace;
-	height:100vh;
+    </div>
 
-	display:flex;
-	align-items:center;
-	justify-content:center;
+    <!-- CHAT -->
+    <div class="chat-log" id="messages">
 
-	overflow:hidden;
-	}
+    <div class="message">
+    <span class="time">20:33</span>
+    <span class="user">[K4MZ2R]</span>
+    <span class="text">
+    : Yo i have legit strat for life,
+    maybe exponential growth until walls.
+    </span>
+    </div>
 
-/* Scanlines */
+    <div class="message">
+    <span class="time">20:35</span>
+    <span class="user">[GG533D]</span>
+    <span class="text">
+    : Show more or I call your bluff
+    </span>
+    </div>
 
-body::after{
-	content:"";
-	position:fixed;
-	inset:0;
+    <div class="message">
+    <span class="time">20:35</span>
+    <span class="user">[GG533D]</span>
+    <span class="text">
+    : }:>
+    </span>
+    </div>
 
-	background:
-	repeating-linear-gradient(
-		to bottom,
-		rgba(255,255,255,.02) 0px,
-		rgba(255,255,255,.02) 1px,
-		transparent 2px
-		);
+    </div>
 
-	pointer-events:none;
-	}
+    <!-- INPUT -->
+    <div class="input-bar">
 
-	/* Main Window */
+    <div class="prompt">&gt;</div>
 
-	.chat-window{
+    <input
+    id="messageInput"
+    type="text"
+    placeholder="Type message..."
+    autocomplete="off"
+    >
 
-		width:min(1200px,95vw);
-		height:min(850px,95vh);
+    </div>
 
-		background:linear-gradient(
-			180deg,
-			#0c1017,
-			#090c12
-			);
+    </div>
 
-		border:1px solid var(--border);
-		border-radius:12px;
+    <script src="script.js"></script>
 
-		overflow:hidden;
-
-		box-shadow:
-		0 0 0 1px #000,
-		0 0 30px #000,
-		0 0 60px #47ff9c22;
-		}
-
-		.header{
-
-			height:60px;
-
-			display:flex;
-			align-items:center;
-
-			padding:0 20px;
-
-			border-bottom:1px solid var(--border);
-
-			background:#0f1520;
-			}
-
-		.room-name{
-			color:var(--green);
-
-			font-size:18px;
-
-			letter-spacing:.15em;
-
-			text-shadow:
-			0 0 10px var(--green);
-			}
-
-		.chat-log{
-
-			height:calc(100% - 120px);
-
-			padding:18px;
-
-			overflow-y:auto;
-
-			display:flex;
-			flex-direction:column;
-
-			gap:10px;
-			}
-
-		.chat-log::-webkit-scrollbar{
-			width:10px;
-			}
-
-		.chat-log::-webkit-scrollbar-track{
-			background:#07090d;
-			}
-
-		.chat-log::-webkit-scrollbar-thumb{
-			background:#243146;
-			border-radius:999px;
-			}
-
-		.chat-log::-webkit-scrollbar-thumb:hover{
-			background:#32435e;
-			}
-
-		/* Message */
-
-		.message{
-			line-height:1.6;
-			word-wrap:break-word;
-		}
-
-		.time{
-		color:var(--muted);
-		}
-
-		.user{
-		color:var(--green);
-
-		text-shadow:
-		0 0 8px #47ff9c99;
-		}
-
-		.text{
-		color:var(--text);
-		}
-
-		/* Footer */
-
-		.input-bar{
-
-			height:60px;
-
-			border-top:1px solid var(--border);
-
-			display:flex;
-			align-items:center;
-
-			padding:0 15px;
-
-			background:#0f1520;
-			}
-
-		.prompt{
-			color:var(--green);
-
-			margin-right:12px;
-
-			font-size:20px;
-			}
-
-		#messageInput{
-
-			flex:1;
-
-			background:none;
-			border:none;
-			outline:none;
-
-			color:white;
-
-			font-family:inherit;
-			font-size:16px;
-			}
-
-		#messageInput::placeholder{
-			color:#556070;
-			}
-
-		</style>
-		</head>
-		<body>
-
-		<div class="chat-window">
-
-		<div class="header">
-		<div class="room-name">
-		-- ROOM --
-		</div>
-		</div>
-
-		<div class="chat-log" id="messages">
-
-		<div class="message">
-		<span class="time">20:33</span>
-		<span class="user">[K4MZ2R]</span>
-		<span class="text">
-		: Yo i have legit strat for life,
-		maybe exponential growth until walls.
-		</span>
-		</div>
-
-		<div class="message">
-		<span class="time">20:35</span>
-		<span class="user">[GG533D]</span>
-		<span class="text">
-		: Show more or I call
-		</span>
-		</div>
-
-		<div class="message">
-		<span class="time">20:35</span>
-		<span class="user">[GG533D]</span>
-		<span class="text">
-		: }:&gt;
-		</span>
-		</div>
-
-		</div>
-
-		<div class="input-bar">
-		<div class="prompt">&gt;</div>
-
-		<input
-		id="messageInput"
-		type="text"
-		placeholder="Type message..."
-		>
-		</div>
-
-		</div>
-		<script>
-
-		const messages = document.getElementById("messages");
-		const input = document.getElementById("messageInput");
-
-		/* User code */
-
-		function generateCode() {
-			const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-
-			let code = "";
-
-			for(let i = 0; i < 6; i++){
-				code += chars[
-					Math.floor(Math.random() * chars.length)
-					];
-				}
-
-				return code;
-				}
-
-				let userCode = localStorage.getItem("userCode");
-
-				if(!userCode){
-					userCode = generateCode();
-					localStorage.setItem("userCode", userCode);
-					}
-
-				/* Add message */
-
-				function addMessage(text){
-
-					const time = new Date();
-
-					const hh =
-					String(time.getHours()).padStart(2,"0");
-
-					const mm =
-					String(time.getMinutes()).padStart(2,"0");
-
-					const message =
-					document.createElement("div");
-
-					message.className = "message";
-
-					message.innerHTML = `
-					<span class="time">${hh}:${mm}</span>
-					<span class="user">[${userCode}]</span>
-					<span class="text"> : ${text}</span>
-					`;
-
-					messages.appendChild(message);
-
-					messages.scrollTop =
-					messages.scrollHeight;
-					}
-
-				/* Send */
-
-				function sendMessage(){
-
-					const text = input.value.trim();
-
-					if(text === "") return;
-
-				addMessage(text);
-
-				input.value = "";
-				}
-
-				/* Enter key */
-
-				input.addEventListener("keydown", (e) => {
-
-					if(e.key === "Enter"){
-
-						e.preventDefault();
-
-						sendMessage();
-						}
-
-					});
-
-					</script>
-		</body>
-		</html>
+    </body>
+    </html>
