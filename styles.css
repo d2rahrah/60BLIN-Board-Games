@@ -19,6 +19,58 @@ DISCO - STYLE SYSTEM
 
 	}
 
+/* =================================
+MOBILE
+================================= */
+
+@media (max-width: 600px) {
+
+	body {
+		height: 100vh;
+		height: 100dvh;   /* real visible height on phones */
+	}
+
+	.chat-window {
+		width: 100vw;
+		height: 100vh;
+		height: 100dvh;
+		border-radius: 0;
+		border: none;
+	}
+
+	.header {
+		padding: 0 10px;
+	}
+
+	.room-name {
+		font-size: 13px;
+		letter-spacing: .05em;
+		min-width: 0;            /* lets the name shrink instead of pushing buttons off */
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.token-display {
+		font-size: 11px;
+		letter-spacing: 1px;
+		white-space: nowrap;
+		flex-shrink: 0;
+	}
+
+	.new-id-btn {
+		padding: 7px 9px;
+		font-size: 11px;
+		letter-spacing: 1px;
+		margin-left: 6px;
+		white-space: nowrap;
+		flex-shrink: 0;          /* buttons never get squeezed off screen */
+	}
+
+	.chat-log {
+		padding: 12px;
+	}
+}
 
 /* =================================
 RESET
@@ -154,55 +206,50 @@ body {
 				 }
 
 
-					/* =================================
-					NEW ID BUTTON
-					================================= */
+				 /* =================================
+				  N *EW ID BUTTON
+				  ================================= */
 
-					.new-id-btn {
+				 .new-id-btn {
+					 margin-left: 10px;
+					 background: transparent;
+					 border: 1px solid var(--green);
+					 color: var(--green);
+					 padding: 9px 16px;
+					 font-family: inherit;
+					 font-size: 12px;
+					 letter-spacing: 2px;
+					 cursor: pointer;
+					 transition: .2s;
+				 }
 
-				  margin-left: auto;
+				 .new-id-btn:hover {
+					 background: var(--green);
+					 color: #05060a;
+					 box-shadow:
+					 0 0 10px #47ff9c66,
+					 0 0 25px #47ff9c33;
+				 }
 
-				  background: transparent;
+				 .new-id-btn:active {
+					 transform: scale(.96);
+				 }
 
-				  border: 1px solid var(--green);
-
-				  color: var(--green);
-
-				  padding: 9px 16px;
-
-				  font-family: inherit;
-
-				  font-size: 12px;
-
-				  letter-spacing: 2px;
-
-				  cursor: pointer;
-
-				  transition: .2s;
-
-				  }
-
-
-					.new-id-btn:hover {
-
-						background: var(--green);
-
-						color: #05060a;
-
-						box-shadow:
-						0 0 10px #47ff9c66,
-						0 0 25px #47ff9c33;
-
-						}
+				 .new-id-btn[hidden] {
+					 display: none;
+				 }
 
 
-					.new-id-btn:active {
+				 /* =================================
+				  T *OKEN DISPLAY
+				  ================================= */
 
-						transform: scale(.96);
-
-						}
-
-
+				 .token-display {
+					 margin-left: auto;
+					 color: var(--green);
+					 font-size: 12px;
+					 letter-spacing: 2px;
+				 }
 					/* =================================
 					CHAT LOG
 					================================= */
@@ -392,5 +439,11 @@ body {
 				 padding: 12px;
 
 				 }
+				 .token-display {
+					 font-size: 11px;
+				 }
 
+				 .new-id-btn {
+					 padding: 7px 10px;
+				 }
 						}
